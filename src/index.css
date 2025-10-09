@@ -1,0 +1,405 @@
+css
+/* --- Global Styles & Fonts --- */
+body { 
+    font-family: 'Roboto', sans-serif; 
+    background-color: #0a0a0a; 
+    color: #e0e0e0; 
+    overflow-x: hidden; 
+    margin: 0;
+}
+
+html { 
+    scroll-behavior: smooth; 
+}
+
+.font-space-mono, 
+.hero-name, .hero-title, .hero-button, 
+.section-title, .project-title, .skill-tag, 
+.contact-button, .footer p {
+    font-family: 'Space Mono', monospace;
+}
+
+/* --- Animations & Effects --- */
+.text-glow {
+    text-shadow: 0 0 5px rgba(0, 255, 136, 0.4), 0 0 10px rgba(0, 255, 136, 0.4);
+}
+
+.text-glow-cyan {
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.6), 0 0 10px rgba(0, 255, 255, 0.6);
+}
+
+.glitch-hover:hover {
+    animation: glitch 0.3s linear infinite;
+}
+
+@keyframes glitch {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
+}
+
+.blinker {
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink { 
+    from, to { opacity: 1 } 
+    50% { opacity: 0 } 
+}
+
+/* Scroll-in animation */
+.section-container {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.section-container.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Layout --- */
+.main-content {
+    background-color: #111;
+    position: relative;
+    z-index: 10;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 80px 24px;
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 48px;
+    color: #fff;
+    text-shadow: 0 0 5px rgba(0, 255, 136, 0.4), 0 0 10px rgba(0, 255, 136, 0.4);
+}
+
+/* --- Hero Section --- */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    background-color: #000;
+}
+.hero-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    opacity: 0.3;
+}
+.hero-content {
+    position: relative;
+    z-index: 1;
+    padding: 0 16px;
+}
+.hero-name {
+    font-size: 3.75rem; /* 6xl */
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.6), 0 0 10px rgba(0, 255, 255, 0.6);
+}
+.hero-title {
+    font-size: 1.25rem; /* xl */
+    color: white;
+    text-shadow: 0 0 5px rgba(0, 255, 136, 0.4), 0 0 10px rgba(0, 255, 136, 0.4);
+    margin-top: 1rem;
+    min-height: 36px;
+}
+.hero-button {
+    margin-top: 2rem;
+    display: inline-block;
+    background-color: rgba(0, 255, 255, 0.2);
+    color: #99f6e4; /* cyan-300 */
+    border: 1px solid #22d3ee; /* cyan-400 */
+    border-radius: 0.5rem;
+    padding: 12px 24px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+.hero-button:hover {
+    background-color: rgba(0, 255, 255, 0.4);
+}
+
+/* --- About Section --- */
+.about-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 48px;
+}
+.about-image-wrapper {
+    width: 100%;
+}
+.about-image {
+    max-width: 250px;
+    width: 100%;
+    border-radius: 9999px;
+    border: 4px solid rgba(0, 255, 255, 0.5);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+    margin: 0 auto;
+    display: block;
+}
+.about-text {
+    font-size: 1.125rem;
+    color: #d1d5db; /* gray-300 */
+}
+.about-text p {
+    margin-bottom: 1rem;
+}
+
+/* --- Projects Section --- */
+.projects-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+}
+.project-card {
+    position: relative; 
+    border-radius: 0.5rem;
+    overflow: hidden; 
+    background-color: #1a1a1a; 
+    padding: 1.5rem; 
+    z-index: 1; 
+    transition: all 0.3s ease-in-out; 
+    padding: 24px;
+    border-radius: 0.5rem;
+    position: relative;
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+    backdrop-filter: blur(4px);
+    border: 1px solid transparent; 
+}
+.project-card:hover {
+    transform: translateY(-8px);
+}
+/* The ::before pseudo-element creates the *gradient layer* that will become the border */
+.project-card::before {
+    content: '';
+    position: absolute;
+    top: -2px; 
+    left: -2px; 
+    right: -2px; 
+    bottom: -2px; 
+    background: conic-gradient(from 0deg, #00ff88, #00ffff, #00ff88); 
+    z-index: -1; 
+    border-radius: 0.6rem; 
+    opacity: 0; 
+    transition: opacity 0.3s ease-in-out; 
+}
+
+/* The ::after pseudo-element creates the "cutout" that reveals the card's background */
+.project-card::after {
+    content: '';
+    position: absolute;
+    top: 0.5px;
+    left: 0.5px;
+    right: 0.5px;
+    bottom: 0.5px;
+    background-color: #1a1a1a; 
+    border-radius: 0.5rem; 
+    z-index: 0; 
+}
+
+.project-card:hover::before {
+    opacity: 1; /* Make it visible on hover */ 
+}
+
+.project-card img,
+.project-card h3,
+.project-card p,
+.project-card .project-links {
+    position: relative; 
+    z-index: 2; /* Ensures they are layered above both the ::before and ::after pseudo-elements */
+}
+
+.project-image {
+    border-radius: 0.375rem;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+.project-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #67e8f9; /* cyan-300 */
+    margin-bottom: 0.5rem;
+}
+.project-description {
+    color: #9ca3af; /* gray-400 */
+    margin-bottom: 1rem;
+}
+.project-links {
+    display: flex;
+    gap: 16px;
+}
+.project-links a {
+    color: #22d3ee; /* cyan-400 */
+    text-decoration: none;
+}
+
+/* --- Skills Section --- */
+.skills-container {
+    max-width: 896px;
+    margin: 0 auto;
+}
+.skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+}
+.skill-tag {
+    background-color: rgba(14, 116, 144, 0.5); /* cyan-900/50 */
+    color: #67e8f9; /* cyan-300 */
+    border: 1px solid #0e7490; /* cyan-700 */
+    padding: 8px 16px;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    transition: all 0.3s ease;
+}
+.skill-tag:hover {
+    background-color: rgba(22, 78, 99, 0.5); /* cyan-800/50 */
+    color: #cffafe; /* cyan-100 */
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.1);
+}
+
+/* --- Contact Section --- */
+.contact-container {
+    max-width: 640px;
+    margin: 0 auto;
+    text-align: center;
+}
+.contact-text {
+    font-size: 1.125rem;
+    margin-bottom: 2rem;
+    color: #e5e7eb; /* gray-200 */
+}
+.contact-button {
+    display: inline-block;
+    background-color: #22d3ee; /* cyan-400 */
+    color: #111827; /* gray-900 */
+    font-weight: 700;
+    border-radius: 0.5rem;
+    padding: 16px 32px;
+    font-size: 1.125rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+.contact-button:hover {
+    background-color: #67e8f9; /* cyan-300 */
+}
+
+/* --- Footer --- */
+.footer {
+    text-align: center;
+    padding: 24px 0;
+    background-color: #000;
+    position: relative;
+    z-index: 10;
+}
+.footer p {
+    color: #d1d5db; /* gray-300 */
+}
+
+/* --- Media Queries for Responsiveness --- */
+@media (min-width: 768px) {
+    .hero-name {
+        font-size: 4.5rem; /* 7xl */
+    }
+    .hero-title {
+        font-size: 1.5rem; /* 2xl */
+    }
+    .about-content {
+        flex-direction: row;
+    }
+    .about-image-wrapper {
+        width: 33.33%;
+    }
+    .about-text {
+        width: 66.66%;
+    }
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .projects-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Add this new rule or modify existing .project-links a rule */
+.project-links .project-button {
+    /* Basic button reset */
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit; /* Remove outline on focus */
+
+    /* Adopt styles from your old .project-links a */
+    color: #22d3ee; /* cyan-400 */
+    text-decoration: none; /* Already handles text-decoration for the text inside */
+    transition: all 0.3s ease; /* Keep your transition for hover effects */
+}
+
+.project-links .project-button:hover {
+    /* Your existing glitch-hover animation will apply */
+    /* Add any other hover styles if needed */
+    color: #67e8f9; /* Example: make it slightly lighter on hover */
+}
+
+.project-links .project-button:disabled {
+    
+    opacity: 0.5;
+    /* You might want to remove the glitch animation on disabled state */
+    animation: none;
+    pointer-events: none; /* Prevents clicks even if visually enabled */
+}
+/* Add this new rule for the buttons */
+.project-links .project-button {
+    /* Basic button reset */
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit; /* Remove outline on focus */
+    text-align: left; /* Align text within button if needed */
+    
+    /* Adopt styles from your old .project-links a */
+    color: #22d3ee; /* cyan-400 */
+    text-decoration: none; /* This will affect the text within the button */
+    transition: all 0.3s ease; /* Keep your transition for hover effects */
+}
+
+.project-links .project-button:hover {
+    /* Your existing glitch-hover animation will apply */
+    /* Add any other hover styles if needed */
+    color: #67e8f9; /* Example: make it slightly lighter on hover */
+}
+
+.project-links .project-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    /* You might want to remove the glitch animation on disabled state */
+    animation: none;
+    pointer-events: none; /* Prevents clicks even if visually enabled */
+}
