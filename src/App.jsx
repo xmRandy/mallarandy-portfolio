@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import * as THREE from 'three';
+import emailjs from '@emailjs/browser';
+
 
 // --- Data for our sections ---
 const projectData = [
@@ -60,9 +62,35 @@ const projectData = [
 ];
 
 const skillsData = [
-    "JavaScript (ES6+)", "React", "FireBase", "SQl",
-    "HTML/CSS", "Figma",
+  // Frontend / Mobile
+  "React.js", 
+  "React Native",
+  "JavaScript (ES6+)",
+  "HTML5",
+  "CSS3 (Modular & Responsive Design)",
+  "Mobile-First UX/UI",
+
+  // Tools & Process
+  "Git / GitHub",
+  "Vite",
+  "Figma",
+  "Software Architecture",
+  "Agile Methodology",
+  "Data Visualization",
+
+  // Backend / Cloud
+  "Firebase (Authentication, Firestore)",
+  "RESTful API Integration",
+  "SQL",
+  "NoSQL Data Modeling",
+
+  // Soft Skills
+  "Independent Problem-Solving",
+  "Critical Thinking",
+  "Team Collaboration",
+  "Behavioral Design Principles"
 ];
+
 
 // --- Reusable Components & Hooks ---
 
@@ -439,19 +467,89 @@ const Skills = () => (
     </Section>
 );
 
-const Contact = () => (
+const Contact = () => {
+  const [copied, setCopied] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [sent, setSent] = useState(false);
+  const formRef = useRef();
+
+  const copyEmail = () => {
+    navigator.clipboard.writeText("mallarandy026@gmail.com");
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+    setSending(true);
+
+    emailjs
+      .sendForm(
+        "service_hkupzbd",      // ✅ your EmailJS Service ID
+        "template_b6555zl",     // ✅ your Template ID
+        formRef.current,
+        "VBm3KpJ6lFNI4vPB_"     // ✅ your Public Key
+      )
+      .then(
+        (result) => {
+          console.log("Email sent:", result.text);
+          setSent(true);
+          setSending(false);
+          e.target.reset();
+          setTimeout(() => setSent(false), 3000);
+        },
+        (error) => {
+          console.log("Error sending email:", error.text);
+          setSending(false);
+        }
+      );
+  };
+
+  return (
     <Section id="contact">
-        <div className="container">
-            <h2 className="section-title">&lt;Get In Touch /&gt;</h2>
-            <div className="contact-container">
-                <p className="contact-text">I'm currently available for freelance work and open to new opportunities. Have a project in mind or just want to say hello? Drop me a line!</p>
-                <a href="mailto:mallarandy026@gmail.com" className="contact-button glitch-hover">
-                    [ mallarandy026@gmail.com ]
-                </a>
+      <div className="container">
+        <h2 className="section-title">&lt;Get In Touch /&gt;</h2>
+        <div className="contact-container">
+          <p className="contact-text">
+            I'm currently available for freelance work and open to new opportunities.
+            Have a project in mind or just want to say hello? Drop me a line!
+          </p>
+
+          <div className="email-wrapper">
+            <div className="email-container">
+              <a
+                href="mailto:mallarandy026@gmail.com"
+                className="contact-button glitch-hover"
+              >
+                [ mallarandy026@gmail.com ]
+              </a>
+              <button onClick={copyEmail} className="copy-float">
+                <img src="/images/copy1.svg" alt="Copy email" />
+                {copied && <span className="copied-text">Copied!</span>}
+              </button>
             </div>
+          </div>
+
+          {/* Subheader + Form */}
+          <h3 className="contact-subtitle text-glow-cyan">Write to Me 💬</h3>
+
+          <form ref={formRef} onSubmit={sendEmail} className="contact-form">
+            <input type="text" name="from_name" placeholder="Your Name" required />
+            <input type="email" name="from_email" placeholder="Your Email" required />
+            <textarea name="message" placeholder="Your Message" rows="4" required></textarea>
+            <button type="submit" className="contact-button glitch-hover">
+              {sending ? "Sending..." : sent ? "Message Sent ✅" : "Send Message"}
+            </button>
+          </form>
         </div>
+      </div>
     </Section>
-);
+  );
+};
+
+
+
+
 
 const Footer = () => (
     <footer className="footer">
